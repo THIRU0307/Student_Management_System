@@ -1,0 +1,125 @@
+/* ===== Layout variables ===== */
+:root {
+  --sidebar-width: 220px;
+  --header-height: 70px;
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* ===== Sidebar ===== */
+.app-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  padding: 20px;
+  background: #fff;
+  z-index: 1040;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+}
+
+.app-sidebar-backdrop {
+  display: none;
+}
+
+/* ===== Header ===== */
+.app-header {
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-width);
+  right: 0;
+  height: var(--header-height);
+  z-index: 1000;
+  padding: 0;
+}
+
+.app-header .container-fluid {
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
+.app-header .app-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 0;
+  min-width: 0;
+}
+
+.app-header .header-actions {
+  flex-shrink: 0;
+}
+
+/* ===== Main content ===== */
+.app-main {
+  margin-left: var(--sidebar-width);
+  padding-top: var(--header-height);
+  min-height: 100vh;
+}
+
+/* Hamburger is hidden on laptop / desktop */
+.menu-toggle {
+  display: none;
+}
+
+/* ===== Tablet & Phone (below 992px) ===== */
+@media (max-width: 991.98px) {
+  .app-sidebar {
+    transform: translateX(-100%);
+    box-shadow: none !important;
+  }
+
+  .app-sidebar.open {
+    transform: translateX(0);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .app-sidebar-backdrop.show {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1035;
+  }
+
+  .app-header {
+    left: 0;
+  }
+
+  .app-main {
+    margin-left: 0;
+  }
+
+  /* Hamburger only visible on phone / tablet */
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .app-header .app-title {
+    font-size: 1.15rem !important;
+  }
+}
+
+/* ===== Small phones (below 576px) ===== */
+@media (max-width: 575.98px) {
+  .app-header .app-title {
+    font-size: 0.95rem !important;
+  }
+
+  /* Keep avatar + logout, hide the "Admin" text to save space */
+  .app-header .admin-label {
+    display: none;
+  }
+
+  .app-header .header-actions .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+  }
+}
